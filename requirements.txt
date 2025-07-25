@@ -1,0 +1,4 @@
+Flask
+cryptography
+Flask-Cors
+waitress
