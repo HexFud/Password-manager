@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vault - Secure Password Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="background-animation"></div>
+
+    <!-- Unlock / Setup Screen (remains the same) -->
+    <main id="unlock-screen" class="screen">
+        <div class="card">
+            <h1 id="unlock-title">Unlock Vault</h1>
+            <p id="unlock-subtitle">Enter your master password to continue.</p>
+            <form id="unlock-form">
+                <div class="input-group">
+                    <input type="password" id="master-password-input" placeholder="Master Password" required>
+                    <input type="password" id="confirm-master-password-input" placeholder="Confirm Master Password" class="hidden">
+                </div>
+                <button type="submit" id="unlock-button">Unlock</button>
+            </form>
+            <p id="error-message" class="error-text"></p>
+        </div>
+    </main>
+
+    <!-- Main Application Screen (Completely new structure) -->
+    <main id="main-app" class="screen hidden">
+        <div id="main-app-grid">
+            <!-- Left Pane: Search and List -->
+            <div id="left-pane">
+                <div class="left-pane-header">
+                    <h2>My Vault</h2>
+                    <button id="add-new-button" title="Add New Entry">+</button>
+                </div>
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search accounts...">
+                </div>
+                <div id="password-list-container">
+                    <!-- Password list items will be injected here -->
+                </div>
+            </div>
+
+            <!-- Right Pane: Details or Form -->
+            <div id="right-pane">
+                <!-- Initial placeholder content -->
+                <div id="details-placeholder" class="right-pane-content">
+                    <div class="placeholder-content">
+                        <svg_icon_here> <!-- Replace with an actual SVG icon -->
+                        <h3>Select an item</h3>
+                        <p>Choose an account from the left to view its details, or click '+' to add a new one.</p>
+                    </div>
+                </div>
+
+                <!-- Content to show password details -->
+                <div id="details-view" class="right-pane-content hidden">
+                    <div class="details-header">
+                        <h3 id="details-account-name"></h3>
+                        <div class="details-actions">
+                            <button id="edit-button" class="btn-secondary">Edit</button>
+                            <button id="delete-button" class="btn-danger">Delete</button>
+                        </div>
+                    </div>
+                    <div class="details-body">
+                        <div class="detail-item">
+                            <label>Username / Email</label>
+                            <div class="value-container">
+                                <span id="details-username"></span>
+                                <button class="copy-btn" data-copy-target="details-username">Copy</button>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <label>Password</label>
+                            <div class="value-container">
+                                <span id="details-password" class="blurred">••••••••••••</span>
+                                <button id="reveal-password-btn">Reveal</button>
+                                <button class="copy-btn" data-copy-target="details-password">Copy</button>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <label>Website URL</label>
+                            <div class="value-container">
+                                <a href="#" id="details-url" target="_blank"></a>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <label>Category</label>
+                            <span id="details-category"></span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Notes</label>
+                            <pre id="details-notes"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form for Adding/Editing a password -->
+                <div id="form-view" class="right-pane-content hidden">
+                    <h3 id="form-title">Add New Entry</h3>
+                    <form id="entry-form">
+                        <input type="hidden" id="form-mode" value="add">
+                        <input type="hidden" id="original-account-name" value="">
+
+                        <label for="account-input">Account Name *</label>
+                        <input type="text" id="account-input" required placeholder="e.g., Google, Amazon">
+
+                        <label for="username-input">Username / Email</label>
+                        <input type="text" id="username-input" placeholder="e.g., user@example.com">
+
+                        <label for="password-input">Password *</label>
+                        <div class="password-form-group">
+                            <input type="password" id="password-input" required>
+                            <button type="button" class="btn-primary" id="generate-password-btn">Generate</button>
+                        </div>
+
+                        <label for="url-input">Website URL</label>
+                        <input type="url" id="url-input" placeholder="https://www.example.com">
+
+                        <label for="category-input">Category</label>
+                        <input type="text" id="category-input" placeholder="e.g., Work, Social Media">
+
+                        <label for="notes-input">Notes</label>
+                        <textarea id="notes-input" rows="4"></textarea>
+
+                        <div class="form-actions">
+                            <button type="button" id="cancel-form-btn" class="btn-secondary">Cancel</button>
+                            <button type="submit" id="save-form-btn" class="btn-primary">Save Entry</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="toast" class=""></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
